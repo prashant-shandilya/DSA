@@ -1,0 +1,58 @@
+var freq =[];
+ var txt =  "1234111231";
+ var arr = txt.split('');
+freq.push(txt[0]);
+freq.push(txt[1]);
+freq.push(txt[2]);
+var a=null,b=null,c=null;
+
+for(var i=3;i<txt.length;i++){
+// console.log(`${freq[0]} ${freq[1]} ${freq[2]}`);
+  if(!freq.includes(txt[i])){
+    for(var j=i+1;j<txt.length;j++){
+      if(txt[j]==freq[0]){
+        if(!a)
+        a =j;
+      }
+      if(txt[j]==freq[1]){
+        if(!b)
+        b=j;
+      }
+      if(txt[j]==freq[2]){
+        if(!c)
+        c=j;
+      }
+    }
+   
+    if(!arr.includes(freq[0],i))
+    {
+      freq[0] = txt[i];
+       console.log(`${freq[0]} ${freq[1]} ${freq[2]}`);
+      continue;
+    }
+    if(!arr.includes(freq[1],i)){
+      freq[1] =txt[i];
+     console.log(`${freq[0]} ${freq[1]} ${freq[2]}`);
+      continue;
+    }
+    if(!arr.includes(freq[2],i)){
+      freq[2]= txt[i];
+      console.log(`${freq[0]} ${freq[1]} ${freq[2]}`);
+      continue;
+    }
+  
+  if(a>b){
+  if(a>c) freq[0]=txt[i];
+  else freq[2]=txt[i];
+ }
+ else{
+   if(b>c) freq[1]=txt[i];
+   else freq[2]=txt[i];
+ }
+ a=null
+b=null
+c=null
+console.log(`${freq[0]} ${freq[1]} ${freq[2]}`);
+ }
+ 
+}
