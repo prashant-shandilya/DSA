@@ -1,0 +1,33 @@
+
+// given a number add the squares of its digits and repeat untill it matches to 1 or repeats itself.
+var get_sum = (k)=>{
+  let i;
+  let sum = 0;
+  
+   while(k!=0){
+        i = k%10;
+          // console.log(i)
+        sum+=(i**2);
+        k = Math.floor(k/10);
+        }
+  
+  return sum;
+  
+}
+
+var isHappy = function(n) {
+  
+    if(n==1)return true;
+
+    let slow = fast = n;
+  
+    do{
+      slow = get_sum(slow);
+      fast = get_sum(get_sum(fast));
+    }
+    while(slow!=fast)
+  if(slow==1)return true;
+  else return false;
+};
+
+// console.log(isHappy(2));
