@@ -1,0 +1,17 @@
+//Using xor we can find the odd character
+
+var findTheDifference = function(s, t) {
+  
+ let fi = s + t;
+
+  fi = fi.split('');
+let ans =fi[0].charCodeAt(0);
+  
+  for(let i=1;i<fi.length;i++){
+    ans^=fi[i].charCodeAt(0);
+  }
+  return String.fromCharCode(ans);
+  
+};
+
+// console.log(findTheDifference("abcd","abcde"));
