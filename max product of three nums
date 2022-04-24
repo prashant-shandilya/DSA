@@ -1,0 +1,40 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+function max(a,b){
+    if(a>b)return a;
+    else return b;
+}
+
+var maximumProduct = function(nums) {
+    
+    let maxA = maxB = maxC = -999999;
+    let minA = minB = 999999;
+    
+    for(let i =0;i<nums.length;i++){
+        
+        if(nums[i]>maxA){
+            maxC = maxB;
+            maxB = maxA;
+            maxA = nums[i]
+        }
+        else if(nums[i]>maxB){
+            maxC = maxB;
+            maxB = nums[i];
+        }
+        else if(nums[i]>maxC){
+            maxC = nums[i]
+        }
+    
+        if(nums[i]<minA){
+            minB = minA;
+            minA = nums[i];
+        }
+        else if(nums[i]<minB){
+            minB = nums[i];
+        }    
+    }
+    
+    return max(maxA*maxB*maxC,minA*minB*maxA);
+};
