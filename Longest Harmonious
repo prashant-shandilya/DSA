@@ -1,0 +1,50 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+
+function max(a,b){
+    if(a>b)return a;
+    else return b;
+}
+
+var findLHS = function(nums) {
+
+    let ans = 0;
+    var obj = {};
+    
+    for(let i=0;i<nums.length;i++){
+        
+        obj[nums[i]]?obj[nums[i]]++:obj[nums[i]] = 1;
+        
+    }
+    var kush = [];
+    
+    for(let key in obj){
+        kush.push(key);
+    }
+    
+    kush.sort((a,b)=>a-b)
+    
+    for(let i=1;i<kush.length;i++){
+        if(Math.abs(kush[i]-kush[i-1])==1){
+            ans = max(ans,obj[kush[i]]+obj[kush[i-1]]);
+        }
+            
+    }
+    
+    
+  
+//     for(let i=1;i<nums.length;i++){
+        
+//         if(Math.abs(nums[i]-nums[i-1])==1){
+//             ans = max (ans,obj[nums[i]]+obj[nums[i-1]]) ;
+//         }
+//     }
+    
+    return ans;
+    
+};
+
+//Find the longest subsequence such that the diff. between min and max is exactly 1.
+
