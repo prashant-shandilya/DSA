@@ -1,0 +1,35 @@
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+
+function min(a,b){
+    if(a<b)return a;
+    else return b;
+}
+
+var minCostClimbingStairs = function(cost) {
+    
+    let final = [];
+    final.push(cost[cost.length-1]);
+    // final.push(cost[cost.length-2]);
+  
+    let len = cost.length-1;
+    var num;
+    
+    for(let i=1;i<=len;i++){
+        
+        if(i==1){
+            num = cost[len-i];
+        }
+        else{
+        num = cost[len-i] + min(final[i-1],final[i-2]);
+        }
+        
+        final.push(num);
+        
+    }
+    return min(final[len-1],final[len]);  
+};
+
+// console.log(minCostClimbingStairs([10,15,20]))
