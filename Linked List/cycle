@@ -15,10 +15,12 @@ public:
         if(!head)return false;
         slow = head;
         fast = head;
-         
+        
+         //Checks if the fast is null or if the next of fast is NULL.
         while(fast&&fast->next){
             
             fast = fast->next->next;
+            // Here fast can be NULL;
             slow = slow->next;
             
             if(fast==slow)return true;
