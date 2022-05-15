@@ -1,0 +1,41 @@
+ function findSum( sum, i, j)
+ {
+        if(i<0||j<0)return 0;
+         let x=i,y=j;
+        if(i>=sum.length)x = sum.length-1;
+        if(j>=sum[0].length)y = sum[0].length-1;
+        
+        return sum[x][y]
+   // return 0
+    }
+    
+ function matrixBlockSum(mat, k) {  
+      let dp = [];
+   
+   for(let x=0;x<mat.length;x++){
+     dp[x] = new Array(mat[0].length)
+   }
+        let row = [];
+        let i,j;
+       let ans = [];
+   
+        for(i=0;i<mat.length;i++){
+            for(j=0;j<mat[0].length;j++){
+                let x =  mat[i][j] + findSum(dp,i-1,j) + findSum(dp,i,j-1) - findSum(dp,i-1,j-1);
+              dp[i][j] = x;
+            } 
+        }
+   
+        for(i=0;i<mat.length;i++){
+            for(j=0;j<mat[0].length;j++){
+                let x= findSum(dp,i+k,j+k) - findSum(dp,i-k-1,j+k) - findSum(dp,i+k,j-k-1) + findSum(dp,i-k-1,j-k-1);
+      row.push(x);
+            }
+          ans.push(row);
+          row = [];
+        }
+        
+        // console.log(ans);
+     return ans;
+    }
+// matrixBlockSum([[1,2,3],[4,5,6],[7,8,9]],1);
