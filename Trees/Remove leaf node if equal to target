@@ -1,0 +1,25 @@
+// Remove the leaf node if it is equal to the target.
+
+// Using Post  Order traversal we can achieve this in O(n) time complexity.
+
+class Solution {
+public:
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+        
+        if(root->left != nullptr){
+            root->left = removeLeafNodes(root->left,target);
+        }
+        
+        if(root->right != nullptr){
+            root->right = removeLeafNodes(root->right,target);
+        }
+        
+        if(root->left == nullptr && root->right == nullptr && root->val == target){
+            return nullptr;
+        }
+        else {
+        return root;
+        }
+        
+    }
+};
