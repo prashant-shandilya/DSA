@@ -1,0 +1,31 @@
+  int lengthOfLongestSubstring(string s) {
+        
+        map <char,int> indx;
+        if (s.size() == 0)return 0;
+        int ans = INT_MIN;
+        int l = 0;
+        
+        for(int i=0;i<s.size();i++){
+            
+            if(indx.count(s[i])){
+                l = max(l,indx[s[i]]+1);
+            }
+            
+            indx[s[i]] = i;
+            ans = max(ans,i-l+1);
+        }
+        
+        return ans;
+        
+    }
+    
+    
+    ************************************************************************************************************************************************
+    
+    we take two pointers , and a map <char,int> indx;
+    
+    we store the index of a char in the given string by iterating with i;
+    
+    if this char is already present in the string then move the left pointer to the right of the previous occuring of this char.
+    
+    meaning if we encounter a already encountered char then we cannot spread our window which includes both of these chars.
