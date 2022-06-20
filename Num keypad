@@ -1,0 +1,32 @@
+  vector<string> letterCombinations(string digits) {
+        
+        string table[] = {"","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        
+        queue <string> qs;
+        qs.push("");
+        
+        vector<string> ans;
+        
+        if(digits == "") return ans;
+        
+        while(qs.size()){
+            
+            string s = qs.front();
+            qs.pop();
+            
+            if(s.length() == digits.length()){
+                ans.push_back(s);
+            }
+            else{
+                
+                for(auto letter:table[digits[s.length()] - '0'])
+                        qs.push(s + letter);
+            }
+        }
+        
+        return ans;
+        
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    O(4^n)
