@@ -1,0 +1,27 @@
+int uniquePaths(int m, int n) {
+        
+        vector<int> cur(n,1);
+        
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                cur[j] = cur[j] + cur[j-1];
+            }
+        }
+        return cur[n-1];
+    }
+    ******************************************************************************************************************************************************
+    
+    we need only one row cur of size n elements (column size) the current number indicates the number of moves to get to that cell.
+    cur[j] --- present cell
+    cur[j] --- previous row same column
+    cur[j-1] --- same row prev. column
+    
+    
+    we then return cur[n-1];
+    
+    last row last col.
+    
+    
+    we have only one array bcz we need only one array 
+     
+     O(m*n) O(n)
