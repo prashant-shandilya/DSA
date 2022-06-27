@@ -1,0 +1,44 @@
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        
+         map<map<char,int>,vector<string>> mp;
+        
+        for( auto val : strs){
+            map<char,int> hi;
+            
+            for(int i=0;i<val.size();i++){
+                
+                hi[val[i]]++;
+                
+            }
+            
+            if(mp.find(hi) != mp.end()){
+                mp[hi].push_back(val);
+            }
+            else{
+                vector<string> now;
+                now.push_back(val);
+                mp[hi] = now;
+            }
+        }
+        
+        auto it = mp.begin();
+        vector<vector<string>> ans;
+        
+        for(;it!=mp.end();it++){
+            auto f = it->second.begin();
+             vector<string> go;
+            for(;f!=it->second.end();f++)go.push_back(*f);
+            
+            ans.push_back(go);
+        }
+        return ans;
+        
+    }
+    
+    
+    ******************************************************************************************************************************************************
+    we have a map<map<char,int>,vector<string>> mp;
+    we go through each of the string in the input. Then create a hashpam of it in the inner map. 
+    then if the new string is equivalent to the inner hashmap then we simply add the new string.
+    
+    
