@@ -1,0 +1,27 @@
+   
+    vector<vector<int>> subsets(vector<int>& nums) {
+    
+        int powr = pow(2,nums.size());
+        vector<vector<int>> ans;
+        vector<int> temp;
+        int i=0;
+        
+        for(;i<powr;i++){
+            for(int j=0;j<nums.size();j++){
+                if(i&(1<<j)){
+                    temp.push_back(nums[j]);
+                }
+            }
+                ans.push_back(temp);
+            
+                temp.clear();
+        }
+        
+        return ans;
+        
+    }
+    *******************************************************************************************************************************************************
+    
+    count from 0 to pow(2,nums.size());
+    
+    also see the set bit.
