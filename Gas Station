@@ -1,0 +1,23 @@
+   int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+    
+        int start = 0;
+        int i;
+        int capacity = 0;
+        int deficit = 0;
+        
+        for(i=0;i<gas.size();i++){
+            
+            capacity += gas[i] - cost[i];
+            
+            if(capacity<0){
+                start = i+1;
+                deficit+=capacity;
+                capacity = 0;
+            }
+            
+        }
+        
+        return (capacity+deficit>=0)?start:-1;
+    }
+    ******************************************************************************************************************************************************
+    Deficit is the amount of gas that is required to cross the barrier. When capacity is less than 0 then we put start = i+1; 
