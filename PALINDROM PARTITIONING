@@ -1,0 +1,47 @@
+vector<vector<string>> ans;
+    
+    void helper(int index, string s ,vector<string> path)
+    {
+        if(index == s.size()){
+            ans.push_back(path);
+        }
+        string hi;
+        for(int i=index;i<s.size();i++){
+        
+            if(palin(s,index,i)){
+                hi = s.substr(index,i-index+1);
+                path.push_back(hi);
+                helper(i+1,s,path);
+                path.pop_back();
+            }
+            
+        } 
+    }
+    
+    bool palin(string s, int start, int end){
+        
+        while(start<end){
+            if(s[start++]!=s[end--])
+                return false;
+        }
+        
+        return true;
+        
+    }
+    
+    
+    
+    
+    vector<vector<string>> partition(string s) {
+        
+        vector <string> path;
+        
+         helper(0,s,path);
+        
+        return ans; 
+    }
+    
+    ****************************************************************************************************************************************************
+    FIRSTLY THE INDEX IS 0 THEN WE ITERATE IT WITH i FROM INDEX TILL S.SIZE(); IF ANY OF THE (INDEX, I) IS A PALINDROME. THEN WE SAVE IT IN THE PATH VECTOR<STRING>
+    THEN WE AGAIN CHECK FOR (I+1,S.SIZE()) . 
+    
