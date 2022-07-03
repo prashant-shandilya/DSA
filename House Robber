@@ -1,0 +1,24 @@
+    int rob(vector<int>& nums) {
+    
+        int memo[nums.size()+1];
+        
+        memo[0] = 0;
+        memo[1] = nums[0];
+        
+        for(int i=1;i<nums.size();i++){
+        
+            int val = nums[i];
+            
+            memo[i+1] = max(val + memo[i-1],memo[i]);
+            
+        }
+        
+        return memo[nums.size()];
+        
+    }
+    *******************************************************************************************************************************************************
+    the memo[0] = 0 memo[1] = nums[0];
+    
+    when i=1 we consider nums[1] , should it be included in the robbing house.
+    
+    the memo[i] represents the ans to the i'th house no.
