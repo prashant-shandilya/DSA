@@ -1,0 +1,30 @@
+Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+
+There is only one repeated number in nums, return this repeated number.
+
+You must solve the problem without modifying the array nums and uses only constant extra space.
+
+
+
+ int findDuplicate(vector<int>& nums) {
+     
+      for(int i=0;i<nums.size();i++){
+          
+        int indx = abs(nums[i]);
+          
+        if(nums[indx]<0)
+            return indx;
+          
+          nums[indx] = -nums[indx];
+          
+      }
+        
+        return nums.size();
+        
+    }
+    
+    
+    ****************************************************************************************************************************************************************
+    since there are n+1 integers and numbers vary from 1 to n . Then each can represent a index in the array. now if we take the first element it can be anything 
+    from 1 to n. then it represents a certain position in the array , we negate that position's value.then if we find that element again and go to it's pointing loca
+    tion then we will find that negated number . this is the only caase when there is a duplicate element and none else.
