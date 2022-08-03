@@ -1,0 +1,25 @@
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+        
+        ListNode * fast = head;
+        ListNode *slow = head;
+        
+        for(int i=0;i<n;i++)fast = fast->next;
+        
+        if(!fast)return head->next;
+        
+        while(fast->next){
+            fast = fast->next;
+            slow = slow->next;
+        }
+        
+        slow->next = slow->next->next;
+        
+        return head;
+        
+        
+    }
+    
+    *****************************************************************************************************************************************************************
+    
+    To delete a node from the end. we need to have n+1 seperation(margin) from the last node. only then we can delete this node. so we create this seperation
+    from the slow to the fast node.if we go to the null in making the seperation we actually mean that we have to delete the first node.
