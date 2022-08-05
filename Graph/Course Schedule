@@ -1,0 +1,53 @@
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1.
+You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+
+bool cycleCheck(int indx,vector<bool> &vis, vector<bool> trail,vector<int>graph[]){
+        
+        vis[indx] = true;
+        trail[indx] = true;
+        
+        for(auto key:graph[indx]){
+            if(!vis[key]){
+                if(cycleCheck(key,vis,trail,graph))return true;
+            }
+            else if(trail[key]){
+                return true;
+            }
+        } 
+        trail[indx] = false;
+        return false;
+    }
+    
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        
+        vector<int>graph[numCourses];
+        
+        for(int i=0;i<prerequisites.size();i++){
+           int src = prerequisites[i][1];
+           int dest = prerequisites[i][0];
+           graph[src].push_back(dest);
+        }
+        
+        vector<bool> vis;
+        vector<bool> trail;
+        
+        for(int i=0;i<numCourses;i++){
+            vis.push_back(false);
+            trail.push_back(false);
+        }
+        bool cycle = false;
+        for(int i=0;i<numCourses;i++){
+            if(!vis[i]){
+                if(cycleCheck(i,vis,trail,graph))cycle =  true;
+            }
+        }
+        return !cycle;
+        
+    }
+    *******************************************************************************************************************************************************************
+    we will construct a graph with src as the prerequisite and dest. as the directed node.
+    then we will use DFS to detect the cycle.
+    if there is a cycle then it is not possible to do the course.
