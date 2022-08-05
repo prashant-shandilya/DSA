@@ -58,3 +58,7 @@ vector<int> graph[7];
   // cout<<"False";
 
 }
+**********************************************************************************************************************************************************************
+there is a visited and a trail bool array.
+if we visit a node then put it in the visited array , and in the trail array this means that we have visted and is in the current trail. if for a node
+we have a node which is going to it and is both visited and trailed then we find our cycle.
