@@ -1,0 +1,65 @@
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. 
+You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. 
+If it is impossible to finish all courses, return an empty array. 
+ 
+ 
+ 
+ vector<int> ans;
+    
+    bool checkCycle(vector<int> graph[],vector<bool>&vis,vector<bool>trail,int indx){
+        vis[indx] = true;
+      
+        trail[indx] = true;
+        
+        for(auto key:graph[indx]){
+            if(!vis[key]){
+                if(checkCycle(graph,vis,trail,key))return true;
+            }
+            else if(trail[key]){
+                return true;
+            }
+        }
+        trail[indx] = false;
+          ans.push_back(indx);
+        return false;
+    }
+    
+    
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        
+        vector<int> graph[numCourses];
+        
+        for(int i=0;i<prerequisites.size();i++){
+            int src = prerequisites[i][1];
+            int dest = prerequisites[i][0];
+            
+            graph[src].push_back(dest);
+        }
+        
+        vector<bool> vis;
+        vector<bool> trail;
+        
+        for(int i=0;i<numCourses;i++){
+            vis.push_back(false);
+            trail.push_back(false);
+        }
+        bool state = false;
+        for(int i=0;i<numCourses;i++){
+            if(!vis[i]){
+                if(checkCycle(graph,vis,trail,i))state = true;
+            }
+        }
+        reverse(ans.begin(),ans.end());
+        if(!state)return ans;
+        
+        vector<int> hi ;
+        return hi;
+        
+    }
+    
+    *************************************************************************************************************************************************************
+    we firstly call the checkCycle for every children then insert the node inside the ans vector , this ensures that when we will reverse the ans vector firstly the node
+    is traversed and then it's children.Hence firstly the prerequisite courses is always studied and then it's dependants.
