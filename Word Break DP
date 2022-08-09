@@ -1,0 +1,44 @@
+Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.
+
+Note that the same word in the dictionary may be reused multiple times in the segmentation.
+
+
+bool check(vector<string> dict, string s){
+        for(auto str:dict){
+            if(str == s)return true;
+        }
+        return false;
+    }
+    
+    
+    bool wordBreak(string s, vector<string>& wordDict) {
+        if(s.size()==0)return true;
+        
+     vector <bool> dp;
+        for(int i=0;i<=s.size();i++)dp.push_back(false);
+        
+        int size = s.size();
+        for(int i=1;i<=s.size();i++){
+            
+            if(dp[i]==false && check(wordDict,s.substr(0,i)))dp[i] = true;
+            
+            if(dp[i]==true){
+                
+                if(i==s.size())return true;
+                
+                for(int j=i+1;j<=s.size();j++){
+                    
+                    if(dp[j]==false && check(wordDict,s.substr(i,j-i)))dp[j] = true;
+                    
+                    if(j==size && dp[j]==true)return true;
+                }
+            }
+        }
+     return false;   
+    }
+    ******************************************************************************************************************************************************************
+    
+    Solved with DP.
+    
+    
+    
