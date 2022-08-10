@@ -1,0 +1,32 @@
+Find the next lexicographical permutation of the given sequence.
+
+void nextPermutation(vector<int>& nums) {
+        
+        int size = nums.size();
+        if (size == 1) return;
+        
+        int k = -1;
+        for(int i=size-2;i>=0;i--){
+            
+            if(nums[i]<nums[i+1]){
+                 k = i ;
+                break;
+            }
+            
+        }
+        if(k == -1){
+             reverse(nums.begin(),nums.end()); 
+            return;
+        }
+
+        for(int i=size-1;i>k;i--){
+            if(nums[i]>nums[k]){
+                swap(nums[i],nums[k]);
+                reverse(nums.begin() + k + 1, nums.end());
+                return;
+            }
+        }
+        
+        
+    }
+    ******************************************************************************************************************************************************************
