@@ -20,3 +20,11 @@
         
         
     }
+
+
+We only update the first and second position when a new no. is lesser than the first or a new no. is lesser than the second.
+
+Then if a no. is found smaller than INT_MAX/greater than second then we simply return true;
+
+Also we are traversing from left to right. 
+So after every new update/Overwriting we are getting better and expecting even smaller number as the third number.
