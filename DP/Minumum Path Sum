@@ -1,0 +1,30 @@
+ int minPathSum(vector<vector<int>>& grid) {
+    
+        if(grid.size()==0)return 0;
+        
+        int row = grid.size();
+        int col = grid[0].size();
+        
+        int curr[row];
+        
+          curr[0] = grid[0][0];
+              
+        for(int i=1;i<row;i++)
+                curr[i] = curr[i-1] + grid[i][0];
+        
+        
+        for(int i=1;i<col;i++){
+            curr[0]+=grid[0][i];
+            
+            for(int j=1;j<row;j++){
+                curr[j] = min(curr[j-1],curr[j]) + grid[j][i];
+            }
+        }
+        
+        return curr[row-1];
+    }
+    
+    ************************************************
+    curr is the current column , and then we firstly calculate the first column, then move on to calculating the second column then we can get the previous value 
+    as the curr[i] and the current row value as curr[i-1];
+    
