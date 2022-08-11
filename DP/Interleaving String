@@ -1,0 +1,64 @@
+Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.
+
+An interleaving of two strings s and t is a configuration where s and t are divided into n and m non-empty substrings respectively, such that:
+
+s = s1 + s2 + ... + sn
+t = t1 + t2 + ... + tm
+|n - m| <= 1
+The interleaving is s1 + t1 + s2 + t2 + s3 + t3 + ... or t1 + s1 + t2 + s2 + t3 + s3 + ...
+Note: a + b is the concatenation of strings a and b.
+
+
+
+  unordered_map<string,bool> mp;
+    
+    bool check(string s1,string s2,string s3, int p1,int p2,int p3){
+            int len1 = s1.size();
+            int len2 = s2.size();
+            int len3 = s3.size();
+        
+        if(p3 == len3){
+            if(p1 == len1 && p2 == len2)
+                return true;
+                else return false;
+        }
+        
+        string key = to_string(p1) + "*" + to_string(p2) + "*" + to_string(p3);
+        
+        if(mp.find(key)!=mp.end()){
+            return mp[key];
+        }
+        
+        if(p1 == len1)
+            return mp[key] = s2[p2] == s3[p3]?check(s1,s2,s3,p1,p2+1,p3+1):false;
+        
+        if(p2 == len2)
+            return mp[key] = s1[p1] == s3[p3]?check(s1,s2,s3,p1+1,p2,p3+1):false;
+        
+        bool one = false;
+        bool two = false;
+        
+        if(s1[p1] == s3[p3])
+            one = check(s1,s2,s3,p1+1,p2,p3+1);
+        if(s2[p2] == s3[p3])
+            two = check(s1,s2,s3,p1,p2+1,p3+1);
+        
+        return mp[key] = one || two;
+            
+            
+            
+    }
+    
+    
+    
+    
+    bool isInterleave(string s1, string s2, string s3) {
+        
+        if(s1.size()+s2.size() != s3.size())
+            return false;
+        
+        return check(s1,s2,s3,0,0,0);
+        
+    }
+    ******************************************************************************************
+    O(M*N)
