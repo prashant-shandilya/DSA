@@ -16,9 +16,15 @@
         return memo[nums.size()];
         
     }
+    
     *******************************************************************************************************************************************************
     the memo[0] = 0 memo[1] = nums[0];
     
     when i=1 we consider nums[1] , should it be included in the robbing house.
     
     the memo[i] represents the ans to the i'th house no.
+
+    If we consider to take the present ele. then we have to discard the previous memo as it may contain the previous ele. included in it.
+    
+    
+    
