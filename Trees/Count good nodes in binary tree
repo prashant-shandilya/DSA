@@ -1,0 +1,32 @@
+Given a binary tree root, 
+a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+
+
+
+ int calculate(TreeNode *root, int mx){
+        
+        int X = 0;
+        
+        if(root){
+            
+            if(root->val>=mx)X = 1;
+            
+           return (calculate(root->left,max(mx,root->val))+calculate(root->right,max(mx,root->val))+
+                   X);
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    
+    int goodNodes(TreeNode* root) {
+        if(root->left || root->right)
+        return calculate(root,INT_MIN);
+        
+        return 1;
+        
+        
+    }
+    **************************************************************
+    preorder traversal
