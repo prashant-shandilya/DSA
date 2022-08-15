@@ -1,0 +1,25 @@
+A parentheses string is valid if and only if:
+
+It is the empty string,
+It can be written as AB (A concatenated with B), where A and B are valid strings, or
+It can be written as (A), where A is a valid string.
+
+
+   int minAddToMakeValid(string s) {
+        
+        
+        int ans = 0,bal = 0;
+        
+        for(int i=0;i<s.size();i++){
+            bal+=s[i]=='('?+1:-1;
+            if(bal==-1){
+                ans++;
+                bal++;
+            }
+        }
+        return ans + bal;
+        
+    }
+    ****************************************************************************************************
+    here if the bal is -1 that means we have encountered a ')' so we have only one choice of increasing the ans and set the balance to 0 (meaning to insert '(')
+    also if bal is > 0 at the end this means we have encountered few ((( so we have to have some ))) to balance them that's why we add them.
