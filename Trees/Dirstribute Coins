@@ -31,3 +31,8 @@ Return the minimum number of moves required to make every node have exactly one 
     
     O(N)
     O(H)
+    
+    one call to helper(root) means it will return the value of the coins needed/excess by that node(subtree). 
+    meaning if it is -ve that means that subtree requires some coins from it's root, and vice versa.
+    
+    also the ans is the abs of the excess of the left subtree and the right subtree. as this is the required move to move the coins from or to the parent.
