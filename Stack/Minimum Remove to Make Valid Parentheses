@@ -1,0 +1,48 @@
+Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) 
+so that the resulting parentheses string is valid and return any valid string.
+
+
+
+
+string minRemoveToMakeValid(string s) {
+        
+    int cnt = 0;
+    int sz = s.size();
+        
+    for(int i=0;i<s.size();i++){
+        if(s[i] == '('){
+            cnt++;
+        }
+        else if (s[i] == ')'){
+            if(cnt == 0)
+               s[i] = '#';
+            else 
+                cnt--;
+        }
+    }
+        cnt = 0;
+        
+    for(int i=sz;i>=0;i--){
+        if(s[i] == ')'){
+            cnt++;
+        }
+        else if (s[i] == '('){
+            if(cnt == 0)
+                s[i] = '#';
+            else
+                cnt--;
+        }
+    }
+        string ans = "";
+        
+        for(int i=0;i<s.size();i++){
+            if(s[i] !='#')
+                ans+=s[i];
+        }
+        
+        return ans;
+        
+    }
+    *****************************************************
+    O(n)
+    O(1)
