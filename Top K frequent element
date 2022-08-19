@@ -1,0 +1,34 @@
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+
+
+
+ vector<int> topKFrequent(vector<int>& nums, int k) {
+    
+        priority_queue<pair<int,int>> pq;
+        unordered_map<int,int> ump;
+        
+        for(int i=0;i<nums.size();i++){
+            ump[nums[i]]++;
+        }
+        
+        auto it = ump.begin();
+        
+        while(it!=ump.end()){
+            pq.push({it->second,it->first});
+            it++;
+        }
+        
+        // auto it2 = pq.begin();
+        vector<int> ans;
+        
+        while(k--){
+            ans.push_back(pq.top().second);
+                // it2++;
+            pq.pop();
+        }
+        return ans;   
+    }
+    *****************************************************
+    O(N+N+klogN)
+    O(N)
