@@ -1,0 +1,35 @@
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+
+  vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        
+        
+       priority_queue<pair<int,pair<int,int>>> pq;
+        
+        for(int i=0;i<points.size();i++){
+            
+            int dist = pow(points[i][0],2) + pow(points[i][1],2);
+            
+            pq.push({dist,{points[i][0],points[i][1]}});
+            
+            if(pq.size() > k)pq.pop();
+            
+        }
+        vector<vector<int>> ans;
+        vector<int> temp;
+        
+       while(!pq.empty()){
+           temp.push_back(pq.top().second.first);
+           temp.push_back(pq.top().second.second);
+           ans.push_back(temp);
+           temp.clear();
+           pq.pop();
+       }
+        return ans;
+         
+    }
+    
+    
+    ***************************************************************************************
+    O(N +  N log K) Don't know if it's N+ or just Nlogk
+    here K is the size of the max heap ( we are building  k sized max heap) we are repeating insertion for N times.
+    O(N)
