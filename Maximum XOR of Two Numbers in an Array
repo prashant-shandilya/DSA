@@ -1,0 +1,34 @@
+Given an integer array nums, return the maximum result of nums[i] XOR nums[j], where 0 <= i <= j < n.
+
+
+
+
+ int findMaximumXOR(vector<int>& nums) {
+        
+        int ans = 0,mask = 0;
+        unordered_set<int>st;
+        
+        for(int i=31;i>=0;i--){
+            
+            mask = mask | (1<<i);
+            
+            for(auto num:nums)
+                st.insert(num & mask);
+            
+            int tmp = ans | (1<<i);
+            
+            for(auto ele:st){
+                if(st.find(ele ^ tmp) != st.end())
+                {ans = tmp;
+                    break;}
+            }
+            
+            st.clear();
+        }
+        
+        return ans;
+        
+    }
+    ***************************************
+    O(32N)
+    
