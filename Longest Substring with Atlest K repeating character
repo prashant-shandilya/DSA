@@ -1,0 +1,49 @@
+Given a string s and an integer k, 
+return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k
+
+
+
+
+
+int longestSubstring(string s, int k) {
+        
+        unordered_map<char,int>ump;
+        int maxUnique = 0;
+        
+        for(auto hi:s){
+            ump[hi]++;
+            if(ump[hi] == 1)maxUnique++;
+        }
+        ump.clear();
+        int result = 0;
+        
+        for(int i=1;i<=maxUnique;i++){
+            ump.clear();
+            int start=0,end=0,unique=0,countK=0;
+            
+            while(end < s.size()){
+                
+                if(unique <=i){
+                    char curr = s[end];
+                    if(ump[curr] == 0)unique++;
+                    ump[curr]++;
+                    if(ump[curr] == k)countK++;
+                    end++;                    
+                }
+                else{
+                    char curr = s[start];
+                     if(ump[curr] == k)countK--;
+                    ump[curr]--;
+                    if(ump[curr] == 0)unique--;
+                    start++;
+                }
+                if(unique == i && unique == countK)
+                    result = max(end-start,result);
+                
+            } 
+        }
+        return result;
+
+    }
+    **********************************************************\
+    O(N)
