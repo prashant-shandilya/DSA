@@ -1,0 +1,80 @@
+Given an array arr[] where each element denotes the number of bananas in a pile, and an integer k representing the total number of hours available. In one hour, up to x bananas can be eaten from a single pile. If a pile contains fewer than x bananas, the entire pile is consumed in one hour. It is guaranteed that the number of piles is less than or equal to k.
+Determine the minimum value of x such that all piles can be completed within k hours.
+
+Examples:
+
+Input: arr[] = [5, 10, 3], k = 4
+Output: 5
+Explanation: If Koko eats at the rate of 5 bananas per hour.
+                  => First pile of 5 bananas will be finished in 1 hour.
+                  => Second pile of 10 bananas will be finished in 2 hours.
+                  => Third pile of 3 bananas will be finished in 1 hours.
+Therefore, Koko can finish all piles of bananas in 1 + 2 + 1 = 4 hours.
+
+Input: arr[] = [5, 10, 15, 20], k = 7
+Output: 10
+Explanation: If Koko eats at the rate of 10 bananas per hour, it will take 6 hours to finish all the piles.
+
+The idea is to try every possible eating speed from 1 to max(arr) and, for each speed, calculate the total time required to finish all piles.
+For a given speed x, the time to finish a pile is (pile + x - 1) // x, and we sum this over all piles.
+The smallest speed for which the total time is less than or equal to k is the required answer.
+
+The core idea is to use binary search on the answer—specifically, on the eating speed x. For a given speed x, we can compute how many hours it would take to eat all the piles. This function is monotonic because - 
+
+As x increases, the total time required decreases or stays the same.
+Therefore, if a certain speed x allows completion within k hours, any higher speed will also work
+This monotonic behavior allows us to apply binary search to efficiently find the minimum valid speed.
+
+// function to check whether mid speed is enough
+// to eat all piles of bananas under k hours
+function check(arr, mid, k) {
+    let totalHours = 0;
+    for (let i = 0; i < arr.length; i++) {
+        totalHours += Math.floor((arr[i] + mid - 1) / mid);
+    }
+
+    // return true if required time is less than 
+    // or equals to given hour, otherwise return false
+    return totalHours <= k;
+}
+
+function kokoEat(arr, k) {
+    // minimum speed of eating is 1 banana/hours
+    let lo = 1;
+
+    // maximum speed of eating is 
+    // the maximum bananas in given piles
+    let hi = Math.max(...arr);
+    let res = hi;
+
+    while (lo <= hi) {
+        let mid = lo + Math.floor((hi - lo) / 2);
+
+        // check if the mid(hours) is valid
+        if (check(arr, mid, k) === true) {
+          
+            // if valid continue to search at
+            // lower speed
+            hi = mid - 1;
+            res = mid;
+        }
+        else {
+          
+            // if cant finish bananas in given
+            // hours, then increase the speed
+            lo = mid + 1;
+        }
+    }
+    return res;
+}
+
+// Driver Code
+let arr = [5, 10, 3];
+let k = 4;
+console.log(kokoEat(arr, k));
+
+5
+
+Time Complexity: O(n × log m), binary search runs in O(log m) time, where m is the maximum pile size. For each candidate speed, we compute the total hours by iterating over all n piles, giving O(n) work per step.
+Auxiliary Space: O(1)
+
