@@ -30,7 +30,7 @@ This monotonic behavior allows us to apply binary search to efficiently find the
 function check(arr, mid, k) {
     let totalHours = 0;
     for (let i = 0; i < arr.length; i++) {
-        totalHours += Math.floor((arr[i] + mid - 1) / mid);
+        totalHours += Math.floor((arr[i] + mid - 1) / mid); // ceiling function to get the ceiling value.
     }
 
     // return true if required time is less than 
