@@ -78,6 +78,7 @@ console.log(kokoEat(arr, k));
 
 5
 
-Time Complexity: O(n × log m), binary search runs in O(log m) time, where m is the maximum pile size. For each candidate speed, we compute the total hours by iterating over all n piles, giving O(n) work per step.
+Time Complexity: O(n × log m), binary search runs in O(log m) time, where m is the maximum pile size. For each candidate speed, 
+we compute the total hours by iterating over all n piles, giving O(n) work per step.
 Auxiliary Space: O(1)
 
