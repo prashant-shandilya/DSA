@@ -15,4 +15,46 @@ The third fraction is 2/5.
 choose an i which is from 0 and a j from 1 to the last element. Now we calculate how many fractions are smaller than mid and how many are larger or equal to mid. In the first for loop we start j 
 from 1 and calculate the arr[i]/arr[j] if it is more thant mid then increment j meaning we are going to search for a smaller number ( as increasing j increases denominator and decreases the fract
 ion) if this new number is smaller than mid then we stop as j next to this number will be smaller as well. Now we calculate total += n-j; the total number of fractions smaller than mid. Now we 
-will increase i but keep the j at the last position. Now repeat
+will increase i but keep the j at the last position. Now repeat the process , so for every number we can count the number of numbers which when made to divide the former number is less than mid.
+When the number of fractions we calculated is equal to k (which are less than the mid) then that very last number is our answer.If the number of fractions are more then we decrease the mid else 
+increase the mid.
+
+class Solution {
+public:
+    vector<int> kthSmallestPrimeFraction(vector<int>& arr, int k) {
+        int n = arr.size();
+        double left = 0, right = 1, mid;
+        vector<int> res;
+
+        while (left <= right) {
+            mid = left + (right - left) / 2;
+            int j = 1, total = 0, num = 0, den = 0;
+            double maxFrac = 0;
+            for (int i = 0; i < n; ++ i) {
+                while (j < n && arr[i] >= arr[j] * mid) {
+                    ++j;
+                }
+                
+                total += n - j;
+
+                if (j < n && maxFrac < arr[i] * 1.0 / arr[j]) {
+                    maxFrac = arr[i] * 1.0 / arr[j];
+                    num = i; den = j;
+                }
+            }
+
+            if (total == k) {
+                res = {arr[num], arr[den]};
+                break;
+            }
+
+            if (total > k) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+
+        return res;
+    }
+};
