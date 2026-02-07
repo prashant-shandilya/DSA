@@ -1,4 +1,6 @@
-Given an array arr[] where each element denotes the number of bananas in a pile, and an integer k representing the total number of hours available. In one hour, up to x bananas can be eaten from a single pile. If a pile contains fewer than x bananas, the entire pile is consumed in one hour. It is guaranteed that the number of piles is less than or equal to k.
+Given an array arr[] where each element denotes the number of bananas in a pile, and an integer k representing the total number of hours available. 
+In one hour, up to x bananas can be eaten from a single pile. If a pile contains fewer than x bananas, the entire pile is consumed in one hour. 
+It is guaranteed that the number of piles is less than or equal to k.
 Determine the minimum value of x such that all piles can be completed within k hours.
 
 Examples:
@@ -19,7 +21,8 @@ The idea is to try every possible eating speed from 1 to max(arr) and, for each 
 For a given speed x, the time to finish a pile is (pile + x - 1) // x, and we sum this over all piles.
 The smallest speed for which the total time is less than or equal to k is the required answer.
 
-The core idea is to use binary search on the answer—specifically, on the eating speed x. For a given speed x, we can compute how many hours it would take to eat all the piles. This function is monotonic because - 
+The core idea is to use binary search on the answer—specifically, on the eating speed x. For a given speed x, we can compute how many hours it would take to eat all the piles. 
+This function is monotonic because - 
 
 As x increases, the total time required decreases or stays the same.
 Therefore, if a certain speed x allows completion within k hours, any higher speed will also work
