@@ -49,6 +49,12 @@ left === right
 
 This value is the smallest number such that at least k elements ≤ it
 
+Time Complexity:
+( O(n log(max - min)) ) — n rows, log-scale binary search over value range.
+
+Space Complexity:
+( O(1) ) — constant extra space.
+
 That is exactly the k-th smallest element
 
 
