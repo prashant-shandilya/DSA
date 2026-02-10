@@ -1,0 +1,55 @@
+Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
+
+Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+Example 1:
+
+Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+Output: 13
+Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+
+Intuition
+In a sorted matrix, instead of brute-force scanning all elements,
+we can binary search over the value range. For each guess, count how many elements are ≤ that guess — if fewer than k, move right; else, move left.
+
+var kthSmallest = function(matrix, k) {
+    let n = matrix.length;
+    let left = matrix[0][0], right = matrix[n - 1][n - 1];
+
+    while (left < right) {
+        let mid = Math.floor((left + right) / 2);
+        let count = 0, j = n - 1;
+
+        for (let i = 0; i < n; i++) {
+            while (j >= 0 && matrix[i][j] > mid) j--; // Count the numbers which are greater than the mid
+            count += (j + 1);
+        }
+
+        if (count < k) left = mid + 1;
+        else right = mid;
+    }
+
+    return left;
+};
+
+if (count < k)
+    left = mid + 1;
+else
+    right = mid;
+If less than k elements ≤ mid → k-th element is larger
+
+Otherwise → k-th element is ≤ mid
+
+This is a lower-bound binary search
+
+return left;
+At the end:
+
+left === right
+
+This value is the smallest number such that at least k elements ≤ it
+
+That is exactly the k-th smallest element
+
+
+
