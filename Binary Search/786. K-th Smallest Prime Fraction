@@ -37,6 +37,7 @@ public:
                 
                 total += n - j;
 
+                // to keep the largest fractions (i,j) as this is the fractions closest to mid in the left.
                 if (j < n && maxFrac < arr[i] * 1.0 / arr[j]) {
                     maxFrac = arr[i] * 1.0 / arr[j];
                     num = i; den = j;
