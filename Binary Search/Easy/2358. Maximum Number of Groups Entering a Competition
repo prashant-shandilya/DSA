@@ -1,0 +1,54 @@
+You are given a positive integer array grades. choose some student(grade) and put them in a group . By the following rules.
+
+The sum of the grades of students in the ith group is less than the sum of the grades of students in the (i + 1)th group, for all groups (except the last).
+
+The total number of students in the ith group is less than the total number of students in the (i + 1)th group, for all groups (except the last).
+
+Return the maximum number of groups that can be formed.
+
+
+Example 1:
+
+Input: grades = [10,6,12,7,3,5]
+Output: 3
+Explanation: The following is a possible way to form 3 groups of students:
+- 1st group has the students with grades = [12]. Sum of grades: 12. Student count: 1
+- 2nd group has the students with grades = [6,7]. Sum of grades: 6 + 7 = 13. Student count: 2
+- 3rd group has the students with grades = [10,3,5]. Sum of grades: 10 + 3 + 5 = 18. Student count: 3
+It can be shown that it is not possible to form more than 3 groups.
+
+
+Example 2:
+Input: grades = [8,8]
+Output: 1
+Explanation: We can only form 1 group, since forming 2 groups would lead to an equal number of students in both groups.
+To maximize the number of groups, we need to form groups of 1, 2, 3, 4 ... students.
+The first condition (sum of grades) will be automatically satisfied if we sort grades.
+Therefore, we only care about the size of the grades array, not the grades themselves.
+The number of students in l groups is l * (l + 1) / 2.
+
+BS:-
+int maximumGroups(vector<int>& grades) {
+    int l = 1, r = 446, n = grades.size();
+    while (l < r) {
+        int m = (l + r + 1) / 2;
+        if (m * (m + 1) / 2 <= n)
+            l = m;
+        else
+            r = m - 1;
+    }
+    return l;
+}
+
+OR 
+return sqrt(2 * grades.size() + 0.25) - 0.5;
+l * (l + 1) / 2 = n
+l ^ 2 + l = 2 * n
+l ^ 2 + l + 0.25 - 0.25 = 2 * n
+(l + 0.5) * (l + 0.5) - 0.25 = 2 * n
+(l + 0.5) ^ 2 = 2 * n + 0.25
+l = sqrt(2 * n + 0.25) - 0.5
+
+Here we are making the group in the ascending order of the grades. like 4,6 7, 8 9 10 .... so this is the situation where we are going to get the maximum number of groups.the last group can be merged in the previous 
+group. like 1 , 2 3 , 4    here 4 can be merged in 2 3 . so now we have to find out how many groups can be made with the given size of grade array. n(n+1)/2 here n is the number of groups here n ==4 means 
+that 4 groups are there and total numbers are 4(5)/2 , So given a number we have to go to its nearest sum using binary search.or using formula
