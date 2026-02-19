@@ -1,0 +1,54 @@
+You are given an array of integers . You can choose one element at a time and instead of that element you can place 2 elements whose sum is equal to that element.Now by using at most masxOperations choices you have to
+minimize the maximum value of an elment.
+
+Example 1:
+
+Input: nums = [9], maxOperations = 2
+Output: 3
+Explanation: 
+- Divide the bag with 9 balls into two bags of sizes 6 and 3. [9] -> [6,3].
+- Divide the bag with 6 balls into two bags of sizes 3 and 3. [6,3] -> [3,3,3].
+The bag with the most number of balls has 3 balls, so your penalty is 3 and you should return 3.
+Example 2:
+
+Input: nums = [2,4,8,2], maxOperations = 4
+Output: 2
+Explanation:
+- Divide the bag with 8 balls into two bags of sizes 4 and 4. [2,4,8,2] -> [2,4,4,4,2].
+- Divide the bag with 4 balls into two bags of sizes 2 and 2. [2,4,4,4,2] -> [2,2,2,4,4,2].
+- Divide the bag with 4 balls into two bags of sizes 2 and 2. [2,2,2,4,4,2] -> [2,2,2,2,2,4,2].
+- Divide the bag with 4 balls into two bags of sizes 2 and 2. [2,2,2,2,2,4,2] -> [2,2,2,2,2,2,2,2].
+The bag with the most number of balls has 2 balls, so your penalty is 2, and you should return 2.
+
+
+bool func(vector<int>& nums, int maxOperations, int mid){
+        long long ops = 0;
+
+    for (int x : nums) {
+        if (x > mid) {
+            ops += (x - 1) / mid;
+        }
+        if (ops > maxOperations) return false;
+    }
+    return true;
+    }
+
+    int minimumSize(vector<int>& nums, int k) {
+        int l=1;
+        int r=*max_element(nums.begin(),nums.end());
+int ans=-1;
+        while(l<=r){
+            int mid=(l+r)/2;
+
+            if(func(nums, k, mid )){
+                ans=mid;
+                r=mid-1;
+            }
+            else{
+                l=mid+1;
+            }
+       }
+        return ans;
+    }
+
+here mid is the expected answer , meaning we will make every element in the array equal to or less than the mid. Here ops = ops + (x-1)/mid. this is the amount of operations req. to make the array equal to mid.
