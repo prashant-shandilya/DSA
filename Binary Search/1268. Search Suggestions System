@@ -19,7 +19,7 @@ return a list of words for every letter read.
             it = lower_bound(it, A.end(), cur);
             for (int i = 0; i < 3 && it + i != A.end(); i++) {
                 string& s = *(it + i);
-                if (s.find(cur)) break;
+                if (s.find(cur)) break; // If cur is not at the zero th index then break.
                 suggested.push_back(s);
             }
             res.push_back(suggested);
