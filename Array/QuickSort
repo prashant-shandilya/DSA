@@ -1,0 +1,47 @@
+vector<int>arr{2,5,1,9,3,8};
+
+void swap(vector<int>&arr,int l,int h){
+    int temp = arr[l];
+    arr[l] = arr[h];
+    arr[h] = temp;
+}
+
+int partition (int l,int h){
+    int pivot = arr[l];
+    int i=l;
+    int j=h;
+    while(i<j){
+        while(arr[i]<=pivot)i++;
+        while(arr[j] > pivot)j--;
+        if(i<j)
+            swap(arr,i,j);
+    }
+    swap(arr,j,l);
+    return j;
+}
+
+void QuickSort(int l,int h){
+    if(l<h){
+        int pivot = partition(l,h);
+        QuickSort(l,pivot-1);
+        QuickSort(pivot+1,h);
+    }
+}
+
+int main() {
+    // Write C++ code here
+    QuickSort(0,arr.size()-1);
+    
+    for(int ele : arr)
+        cout<<ele<<' ';
+    
+    cout<<endl;
+
+    return 0;
+}
+
+Here in the QuickSort function firstly we are going to find the correct position of a pivot element before doing the recursion.The recursion means we have found the correct position
+of the pivot element.
+The partition function declares the first element arr[l] as the pivot element and finds the proper place of it inside the array.inside the while loop we first find an element from the
+left which is larger than the pivot and also an elment which is smaller than pivot from the right. if l<h then just swap the element and continue.
+lastly the j will be one smaller than i . and then we will swap the pivot arr[l] with the arr[j];
