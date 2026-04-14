@@ -1,0 +1,44 @@
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
+
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+Input: s = "AABABBA", k = 1
+Output: 4
+Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
+The substring "BBBB" has the longest repeating letters, which is 4.
+There may exists other ways to achieve this answer too.
+
+ int characterReplacement(string s, int k) {
+        
+       int start = 0,end = 0;
+       int ans = 0;
+        
+       int cnt = 0;
+        unordered_map<char,int> ump;
+        
+        
+        for(;end<s.size();end++){
+            
+           ump[s[end]]++;
+            
+           cnt = max(cnt,ump[s[end]]);
+            
+           while(end-start+1-cnt>k){
+// Shrinking the window.
+                ump[s[start]]--;
+               start++;
+           }
+            
+            ans = max(ans,end-start+1);
+        }
+        return ans;
+        
+    }
+
+We want the longest substring where we can change at most k characters to make all characters same.
+
+window_size - count_of_most_frequent_char <= k
+
+replacements_needed = window_size - max_freq
+
+“I want the biggest window where I can convert everything into one character using at most k changes.”
