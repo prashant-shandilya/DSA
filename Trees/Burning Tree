@@ -1,0 +1,109 @@
+Given the root of a binary tree and a target node, determine the minimum time required to burn the entire tree if the target node is set on fire.
+In one second, the fire spreads from a node to its left child, right child, and parent.
+
+Note: The tree contains unique values.
+
+USING BFS :-
+
+The fire spreads to neighboring nodes first, then to their neighbors, and so on. In other words, the fire spreads level by level. To simulate this,
+we use BFS to traverse the tree in all directions, towards children and the parent. Since we need to move upwards, we first keep track of the parent of each node. 
+Then, starting from the target node, we perform a level-order traversal. The number of levels traversed during this process gives the minimum time required to burn the entire tree.
+
+CODE:-
+
+#include<iostream>
+#include<queue>
+#include<unordered_map>
+using namespace std;
+
+// Node Structure
+class Node{
+public:
+    int data;
+    Node* left, *right;
+    Node(int x) {
+        data = x;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+int minTime(Node *root, int target) {
+    if (root == nullptr) return -1;
+    
+    queue<Node*> q;
+    q.push(root);
+    Node* tar;
+    
+    // Map to keep track of parent of every node
+    unordered_map<Node*, Node*> par;
+    par[root] = nullptr;
+    
+    while (!q.empty()) {
+        Node* curr = q.front();
+        q.pop();
+        
+        //  Set the target node
+        if (curr->data == target)
+            tar = curr;
+        
+        //  Push the left child
+        if (curr->left != nullptr) {
+            par[curr->left] = curr;
+            q.push(curr->left);
+        }
+        
+        // Push the right child
+        if (curr->right != nullptr) {
+            par[curr->right] = curr;
+            q.push(curr->right);
+        }
+    }
+    
+    // map to keep track of visted or not visted node
+    unordered_map<Node*, bool> vis;
+    
+    int ans = -1;
+    
+    q.push(tar);
+    
+    while (!q.empty()) {
+        int size = q.size();
+        while (size--) {
+            Node* curr = q.front();
+            vis[curr] = true;
+            q.pop();
+            
+            // Push the left child node.
+            if (curr->left != nullptr && !vis[curr->left])
+                q.push(curr->left);
+            
+            // Push the right child node.
+            if (curr->right != nullptr && !vis[curr->right])
+                q.push(curr->right);
+            
+            // Push the parent node.    
+            if (par[curr] != nullptr && !vis[par[curr]])
+                q.push(par[curr]);
+        }
+        ans++;
+    }
+    
+    return ans;
+}
+
+int main() {
+    Node *root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+    root->right->left = new Node(6);
+    root->right->right = new Node(7);
+    
+    int target = 2;
+    
+    cout << minTime(root, target) << endl;
+    
+    return 0;
+}
