@@ -1,0 +1,136 @@
+// C++ implementation to print all
+// the nodes from the given target 
+// node using iterative approach
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node *left, *right;
+    Node (int x) {
+        data = x;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+vector<int> KDistanceNodes(Node* root, int target, int k) {
+    vector<int> ans;
+    
+    // base case
+    if (root == nullptr) return ans;
+    
+    queue<Node*> q;
+    q.push(root);
+    
+    // hash map to map the nodes
+    // to their parent nodes.
+    unordered_map<Node*, Node*> p;
+    p[root] = nullptr;
+    
+    Node* tar;
+    
+    // This loop will find the target 
+    // node and map all the nodes to 
+    // their parent nodes.
+    while (!q.empty()) {
+        Node* curr = q.front();
+        q.pop();
+        
+        // If current node is target
+        if (curr->data == target)
+            tar = curr;
+        
+        // Map the left child to current
+        // node.
+        if (curr->left != nullptr) {
+            p[curr->left] = curr;
+            q.push(curr->left);
+        }
+        
+        // Map the right child to current
+        // node.
+        if (curr->right != nullptr) {
+            p[curr->right] = curr;
+            q.push(curr->right);
+        }
+    }
+    
+    q.push(tar);
+    
+    // hash map to check if 
+    // a node has been visited.
+    unordered_map<Node*, bool> vis;
+    
+    while (!q.empty()) {
+        int size = q.size();
+        
+        // If the distance is k,
+        // then append the elements
+        // into result.
+        if (k == 0) {
+            while (!q.empty()) {
+                Node* node = q.front();
+                q.pop();
+                ans.push_back(node->data);
+            }
+            break;
+        }
+        
+        while (size--) {
+            Node* curr = q.front();
+            vis[curr] = true;
+            q.pop();
+            
+            if (curr->left != nullptr && !vis[curr->left])  
+                q.push(curr->left);
+                
+            if (curr->right != nullptr && !vis[curr->right])
+                q.push(curr->right);
+                
+            Node* parent = p[curr];
+            if (parent != nullptr && !vis[parent])
+                q.push(parent);
+        }
+        
+        k--;
+    }
+    
+    // Sort the result
+    sort(ans.begin(), ans.end());
+    
+    return ans;
+}
+
+void printList(vector<int> v) {
+    int n = v.size();
+    for (int i=0; i<n; i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    
+    // Create a hard coded tree.
+    //         20
+    //       /    \
+    //      7      24
+    //    /   \
+    //   4     3
+    //        /  
+    //       1    
+    Node* root = new Node(20);
+    root->left = new Node(7);
+    root->right = new Node(24);
+    root->left->left = new Node(4);
+    root->left->right = new Node(3);
+    root->left->right->left = new Node(1);
+    
+    int target = 7, k =2;
+    vector<int> ans = KDistanceNodes(root, target, k);
+    
+    printList(ans);
+    return 0;
+}
